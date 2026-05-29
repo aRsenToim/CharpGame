@@ -11,7 +11,7 @@ namespace BattleFroggy.Controller
 {
     internal class QuadTreeController
     {
-        private int MAX_OBJECTS = 4;
+        private int MAX_OBJECTS = 1;
         private int MAX_DEPTH = 6;
 
         private Rectangle Bounds;

@@ -2,21 +2,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace BattleFroggy.VIew.Components
 {
-    internal class CountPointView
+    internal class PointCountView
     {
-        public ArenaModel model;
+        public PointCountModel model;
         public SpriteFont font;
 
-        public CountPointView(ArenaModel Model)
+        public PointCountView(PointCountModel Model)
         {
             model = Model;
         }

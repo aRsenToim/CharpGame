@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoGame.Framework.Devices.Sensors;
+using System;
+using System.ComponentModel.Design;
 
 namespace BattleFroggy.Model
 {
@@ -11,6 +12,9 @@ namespace BattleFroggy.Model
     }
     internal class PlayerModel
     {
+        public event Action OnDeath;
+
+
         public Vector2 Position;
         public Vector2 Velocity;
 
@@ -23,7 +27,7 @@ namespace BattleFroggy.Model
         public int Height = 146;
         public int Width = 100;
 
-        public int HP = 10;
+        public int HP = 1;
 
         public PlayerDirection playerDirection = PlayerDirection.Default;
 
@@ -49,7 +53,12 @@ namespace BattleFroggy.Model
 
         public void KillHp()
         {
-            HP -= 1;
+            if (HP-1 > 0) {
+                HP -= 1;
+            }else
+            {
+                OnDeath?.Invoke();
+            }
         }
 
     }

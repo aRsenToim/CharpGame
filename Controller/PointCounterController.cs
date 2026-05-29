@@ -1,14 +1,18 @@
-﻿
-using BattleFroggy.Model;
+﻿using BattleFroggy.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BattleFroggy.Controller
 {
-    internal class PointController
+    internal class PointCounterController
     {
         private float _timerCountPoint;
         private PointCountModel _model;
 
-        public PointController(PointCountModel pointCountModel)
+        public PointCounterController(PointCountModel pointCountModel)
         {
             _model = pointCountModel;
         }
@@ -21,7 +25,7 @@ namespace BattleFroggy.Controller
             {
                 _model.AddCountPoint();
                 _timerCountPoint = 0;
-            }
+            }   
         }
     }
 }

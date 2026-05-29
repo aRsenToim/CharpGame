@@ -11,6 +11,7 @@ namespace BattleFroggy.Model
     {
         MainMenu,
         Arena,
+        GameOver
     }
     internal class GameModel
     {

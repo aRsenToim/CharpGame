@@ -8,17 +8,17 @@ namespace BattleFroggy.Model
 {
     internal class ArenaModel
     {
-        public float TimeInPoint { get; } = 0.5f;
-        public int CountPoint { get; } = 10;
-        public int CountRound;
-        public bool IsActivePlayer;
-
-        public ArenaModel(int countRound, bool isActivePlayer)
-        {
-            CountRound = countRound;
-            IsActivePlayer = isActivePlayer;
+        public List<OrangeModel> Oranges = new List<OrangeModel>();
+        
+        public ArenaModel(bool isActivePlayer)
+        {   
         }
 
-
+        public void RemoveAllOranges() {
+            Oranges.RemoveAll(o => !o.IsActive);
+        }
+        public void DeleteAllOranges() {
+            Oranges.Clear();
+        }
     }
 }

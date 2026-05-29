@@ -30,6 +30,10 @@ namespace BattleFroggy
 
         //Entities Arena
         private ArenaModel _arenaModel;
+
+        //Entities PointCounter
+        private PointCountModel _pointCounterModel;
+    
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,26 +45,31 @@ namespace BattleFroggy
 
         protected override void Initialize()
         {
+            //Entities Arena
+            _arenaModel = new ArenaModel(true);
+            _pointCounterModel = new PointCountModel(1f, 10, 0);
+
+
             // Entities Player
             _playerModel = new PlayerModel(new Vector2(0, 0));
             _playerController = new PlayerController(_playerModel, _widthGame, 500);
 
             // Entities Opponent
             _opponentModel = new OpponentModel(new Vector2(_widthGame, 200));
-            _opponentController = new OpponentController(_opponentModel, _playerModel, _widthGame, _heightGame);
+            _opponentController = new OpponentController(_opponentModel, _playerModel, _arenaModel, _widthGame, _heightGame);
 
-            //Entities Arena
-            _arenaModel = new ArenaModel(0, true);
 
             // Entities Game
             _gameModel = new GameModel(GameState.MainMenu);
             _gameController = new GameController(
-                _gameModel,
+                _gameModel, 
                 _playerModel, _playerController,
-                _opponentModel, _opponentController, _arenaModel);
+                _opponentModel, _opponentController, _arenaModel, _pointCounterModel);
 
 
-            _gameView = new GameView(_gameModel, _widthGame, _heightGame, _playerModel, _opponentModel, _opponentController, _arenaModel);
+            _gameView = new GameView(_gameModel, _widthGame, _heightGame, _playerModel, _opponentModel, _opponentController, _arenaModel, _pointCounterModel);
+
+            _playerModel.OnDeath += () => _gameModel.ChangeState(GameState.GameOver);
 
             base.Initialize();
         }

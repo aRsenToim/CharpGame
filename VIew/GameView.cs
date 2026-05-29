@@ -25,36 +25,32 @@ namespace BattleFroggy.VIew
         public OrangeView orangeView;
         public MainMenuView mainMenuView;
         public ArenaView arenaView;
-        public CountPointView countPointView;
         public HPView hpView;
+        public Gameover gameoverView;
 
-        public GameView(GameModel gameModel, int width, int height, 
-            PlayerModel playerModel, OpponentModel opponentModel, 
-            OpponentController opponentController, ArenaModel arenaModel
-            )
+        public GameView(GameModel gameModel, int width, int height, PlayerModel playerModel, OpponentModel opponentModel, 
+            OpponentController opponentController, ArenaModel arenaModel, PointCountModel pointCounter)
         {
             model = gameModel;
             mainMenuView = new MainMenuView(width, height);
-            arenaView = new ArenaView(width, height);
-            widthGame = width;
-            heightGame = height;
-            playerView = new PlayerView(playerModel);
-            opponentView = new OpponentView(opponentModel);
-            orangeView = new OrangeView(opponentController.Oranges);
-            countPointView = new CountPointView(arenaModel);
-            hpView = new HPView(playerModel);
+            arenaView =
+                new ArenaView(
+                    width,
+                    height,
+                    playerModel,
+                    opponentModel,
+                    opponentController, 
+                    arenaModel, pointCounter);
+            gameoverView = new Gameover();
         }
+
 
         public void Load(ContentManager Content, GraphicsDevice graphicsDevice)
         {
             mainMenuView.Load(Content);
             arenaView.Load(Content);
-            playerView.Load(Content);
-            countPointView.Load(Content);
-            opponentView.Load(Content);
-            orangeView.Load(Content);
-            hpView.Load(Content);
-        }
+            gameoverView.Load(Content);
+        }   
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -66,11 +62,9 @@ namespace BattleFroggy.VIew
 
                 case GameState.Arena:
                     arenaView.Draw(spriteBatch);
-                    opponentView.Draw(spriteBatch);
-                    orangeView.Draw(spriteBatch);
-                    countPointView.Draw(spriteBatch);
-                    hpView.Draw(spriteBatch);
-                    playerView.Draw(spriteBatch);
+                    break;
+                case GameState.GameOver:
+                    gameoverView.Draw(spriteBatch);
                     break;
             }
         }
