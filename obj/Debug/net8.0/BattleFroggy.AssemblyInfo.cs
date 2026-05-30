@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BattleFroggy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11963e22be9dd1df9cdf502d262b97e4535e910b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a1d8cb719f3e2babe1f2d5b957541b7775bef3b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("BattleFroggy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BattleFroggy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

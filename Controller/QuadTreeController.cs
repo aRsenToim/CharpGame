@@ -126,7 +126,7 @@ namespace BattleFroggy.Controller
             for (int i = 0; i < objects.Count; i++)
             {
                 if (objects[i].Bounds.Intersects(area))
-                {
+                {   
                     returnObjects.Add(objects[i]);
                 }
             }

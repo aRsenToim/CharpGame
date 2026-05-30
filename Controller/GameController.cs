@@ -1,33 +1,20 @@
 ﻿using BattleFroggy.Model;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BattleFroggy.Controller
 {
     internal class GameController
     {
         private readonly GameModel _gameModel;
-        private readonly PlayerController _playerController;
-        private readonly OpponentController _opponentController;
-        private readonly ArenaModel _arenaModel;
         private readonly PlayerModel _playerModel;
-        private readonly OpponentModel _opponentModel;
-        
-        private readonly PointCounterController _pointCounterController;
-        public ArenaController arenaController;
-        
 
-        private QuadTreeController _quadTree;
-        private List<QuadTreeObject> _resultsCollisions;
+        private readonly ArenaController _arenaController;
+
         private KeyboardState _previousKeyboard;
 
+        public bool ShowDebug { get; private set; } = false;
 
         public GameController(
             GameModel gameModel,
@@ -37,30 +24,29 @@ namespace BattleFroggy.Controller
             OpponentController opponentController,
             ArenaModel arenaModel,
             PointCountModel pointCounter
-            )
+        )
         {
             _gameModel = gameModel;
             _playerModel = playerModel;
-            _playerController = playerController;
-            _opponentModel = opponentModel;
-            _arenaModel = arenaModel;
-            _opponentController = opponentController;
-            arenaController = new ArenaController(
-                _gameModel,
+
+            var pointCounterController = new PointCounterController(pointCounter);
+
+            _arenaController = new ArenaController(
+                gameModel,
                 playerModel,
                 opponentModel,
+                arenaModel,
                 playerController,
                 opponentController,
-                new PointCounterController(pointCounter)
+                pointCounterController
             );
-
-            _quadTree = new QuadTreeController(new Rectangle(0, 0, 1920, 1080), 0);
-            _resultsCollisions = new List<QuadTreeObject>();
-            _pointCounterController = new PointCounterController(pointCounter);
         }
 
         public void Update(KeyboardState keyboardState, float deltaTime)
         {
+            if (keyboardState.IsKeyDown(Keys.F1) && _previousKeyboard.IsKeyUp(Keys.F1))
+                ShowDebug = !ShowDebug;
+
             switch (_gameModel.CurrentState)
             {
                 case GameState.MainMenu:
@@ -69,8 +55,7 @@ namespace BattleFroggy.Controller
                     break;
 
                 case GameState.Arena:
-                    arenaController.Update(deltaTime, keyboardState);
-                    UpdateCollisions();
+                    _arenaController.Update(deltaTime, keyboardState);
                     break;
 
                 case GameState.GameOver:
@@ -82,31 +67,9 @@ namespace BattleFroggy.Controller
             _previousKeyboard = keyboardState;
         }
 
-        private void UpdateCollisions() {
-            _quadTree.Clear();
-            _resultsCollisions.Clear();
-
-            foreach (var orange in _arenaModel.Oranges)
-            {
-                if (orange.IsActive)
-                {
-                    _quadTree.Insert(orange);
-                }
-            }
-
-
-            _quadTree.Query(_resultsCollisions, _playerModel.Hitbox);
-
-            foreach (var quadObject in _resultsCollisions)
-            {
-                OrangeModel orange = (OrangeModel)quadObject;
-
-                if (orange.IsActive && _playerModel.Hitbox.Intersects(orange.Hitbox))
-                {
-                    _playerModel.KillHp();
-                    orange.IsActive = false;
-                }
-            }
+        public List<Rectangle> GetQuadTreeBounds()
+        {
+            return _arenaController.GetQuadTreeBounds();
         }
     }
 }

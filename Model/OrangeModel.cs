@@ -19,10 +19,5 @@ namespace BattleFroggy.Model
             Position = position;
             Velocity = velocity;
         }
-        public void UpdateMovement(float deltaTime)
-        {
-            Position += Velocity * deltaTime;
-            Bounds = Hitbox;
-        }
     }
 }

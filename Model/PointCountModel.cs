@@ -21,7 +21,6 @@ namespace BattleFroggy.Model
         {
             CountRound = countRound;
         }
-
         public void AddCountPoint()
         {
             CountRound += CountPoint;

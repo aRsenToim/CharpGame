@@ -1,95 +1,87 @@
 ﻿using BattleFroggy.Model;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Text.RegularExpressions;
-
 
 namespace BattleFroggy.Controller
 {
     internal class PlayerController
     {
-        public PlayerModel model;
-        
+        private readonly PlayerModel _model;
+
         private KeyboardState _previousKeyboard;
         private int _screenWidth;
-        private int Floor;
+        private int _floor;
 
+        public PlayerModel Model => _model;
 
         public PlayerController(PlayerModel playerModel, int screenWidth, int floor)
         {
-            model = playerModel;
+            _model = playerModel;
             _screenWidth = screenWidth;
-            Floor = floor;
+            _floor = floor;
         }
+
         public void ResolveCollisions(Rectangle opponentHitbox)
         {
-            if (model.Hitbox.Intersects(opponentHitbox))
-                model.Position.X = opponentHitbox.X - model.Width;
+            if (_model.Hitbox.Intersects(opponentHitbox))
+                _model.Position.X = opponentHitbox.X - _model.Width;
         }
 
         public void SetPosition(float deltaTime)
         {
-            model.Velocity.Y += model.Gravity * deltaTime;
+            _model.Velocity.Y += _model.Gravity * deltaTime;
 
-            model.Position += model.Velocity * deltaTime;
+            _model.Position += _model.Velocity * deltaTime;
 
-            if (model.Position.Y + model.Height >= Floor)
+            if (_model.Position.Y + _model.Height >= _floor)
             {
-                model.Position.Y = Floor - model.Height;
-                model.Velocity.Y = 0;
-
-                model.Ground = true;
-                model.countJump = 0;
+                _model.Position.Y = _floor - _model.Height;
+                _model.Velocity.Y = 0;
+                _model.Ground = true;
+                _model.countJump = 0;
             }
             else
             {
-                model.Ground = false;
+                _model.Ground = false;
             }
 
-            if (model.Position.X < 0)
-            {
-                model.Position.X = 0;
-            }
+            if (_model.Position.X < 0)
+                _model.Position.X = 0;
 
-            if (model.Position.X + model.Width > _screenWidth)
-            {
-                model.Position.X = _screenWidth - model.Width;
-            }
+            if (_model.Position.X + _model.Width > _screenWidth)
+                _model.Position.X = _screenWidth - _model.Width;
         }
 
         public void Jump()
         {
-            if (model.countJump < model.maxJump)
+            if (_model.countJump < _model.maxJump)
             {
-                model.Velocity.Y = model.JumpForce;
-                model.Ground = false;
-                model.countJump++;
+                _model.Velocity.Y = _model.JumpForce;
+                _model.Ground = false;
+                _model.countJump++;
             }
         }
 
         public void Update(float deltaTime, KeyboardState keyboardState, Rectangle opponentHitbox)
         {
-            model.Velocity.X = 0;
+            _model.Velocity.X = 0;
 
             ResolveCollisions(opponentHitbox);
 
             if (keyboardState.IsKeyDown(Keys.A))
             {
-                model.Velocity.X = -model.Speed;
-                if(model.Ground) model.playerDirection = PlayerDirection.Left;
+                _model.Velocity.X = -_model.Speed;
+                if (_model.Ground) _model.playerDirection = PlayerDirection.Left;
             }
             else if (keyboardState.IsKeyDown(Keys.D))
             {
-                model.Velocity.X = model.Speed;
-                if (model.Ground) model.playerDirection = PlayerDirection.Right;
+                _model.Velocity.X = _model.Speed;
+                if (_model.Ground) _model.playerDirection = PlayerDirection.Right;
             }
-
 
             if (keyboardState.IsKeyDown(Keys.Space) && _previousKeyboard.IsKeyUp(Keys.Space))
             {
-                model.playerDirection = PlayerDirection.Default;
+                _model.playerDirection = PlayerDirection.Default;
                 Jump();
             }
 
