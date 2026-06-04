@@ -13,6 +13,7 @@
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/HP.png</File>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/MenuGame.png</File>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/orange.png</File>
+    <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/stronghold.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
@@ -20,6 +21,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File>carolina.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

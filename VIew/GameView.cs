@@ -1,9 +1,10 @@
 ﻿using BattleFroggy.Model;
+using BattleFroggy.Model.Opponents;
+using BattleFroggy.VIew.Components;
 using BattleFroggy.VIew.Scene;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BattleFroggy.VIew.Components;
 using System.Collections.Generic;
 
 namespace BattleFroggy.VIew
@@ -27,7 +28,7 @@ namespace BattleFroggy.VIew
             int width,
             int height,
             PlayerModel playerModel,
-            OpponentModel opponentModel,
+            IOpponentModel opponentModel,
             ArenaModel arenaModel,
             PointCountModel pointCounter
         )

@@ -1,34 +1,45 @@
 ﻿using BattleFroggy.Model;
+using BattleFroggy.Model.Opponents;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 
 namespace BattleFroggy.Controller
 {
     internal class OpponentController
     {
-        private readonly OpponentModel _opponent;
+        private readonly IOpponentModel _opponent;
         private ArenaModel _arenaModel;
-
-        private AttackContoroller _attackController;
-
+        private PlayerModel _player;
         private float _throwInterval = 0.8f;
-        private float _orangeSpeed = 420f;
-
-        private const int _superDirections = 5;
         private int _throwCount = 0;
-        private const int _superEvery = 15;
+        private float bulletSpeed = 500f;
 
         private int _screenWidth;
         private int _screenHeight;
 
-        public OpponentController(OpponentModel opponent, PlayerModel player, ArenaModel arenaModel, int screenWidth, int screenHeight)
+        public OpponentController(IOpponentModel opponent, PlayerModel player, ArenaModel arenaModel, int screenWidth, int screenHeight)
         {
             _opponent = opponent;
+            _player = player;
             _arenaModel = arenaModel;
             _screenWidth = screenWidth;
             _screenHeight = screenHeight;
-            _attackController = new AttackContoroller(opponent, player, arenaModel.Oranges);
             _opponent.ThrowCooldown = 1f;
+        }
+
+        private Vector2 GetSpawnPosition()
+        {
+            return new Vector2(
+                _opponent.Position.X + _opponent.Width / 2f,
+                _opponent.Position.Y + _opponent.Height / 4f
+            );
+        }
+
+        private Vector2 GetDirectionToPlayer()
+        {
+            Vector2 direction = _player.Position - _opponent.Position;
+            if (direction != Vector2.Zero)
+                direction.Normalize();
+            return direction;
         }
 
         public void Update(float deltaTime)
@@ -37,7 +48,7 @@ namespace BattleFroggy.Controller
             if (_opponent.ThrowCooldown <= 0f)
             {
                 _throwCount++;
-                _attackController.TripleAttack(_orangeSpeed);
+                if(_throwCount % 15 == 0) _opponent.Attacks.GetAttack(2).Execute(bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 500f, _screenWidth, _screenHeight);
                 _opponent.ThrowCooldown = _throwInterval;
             }
 

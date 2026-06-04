@@ -1,4 +1,5 @@
 ﻿using BattleFroggy.Model;
+using BattleFroggy.Model.Opponents;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,15 +13,15 @@ namespace BattleFroggy.VIew
 {
     internal class OpponentView
     {
-        public OpponentModel model;
+        public IOpponentModel model;
         public Texture2D texture;
 
-        public OpponentView(OpponentModel Model) {
+        public OpponentView(IOpponentModel Model) {
             model = Model;
         }
         public void Load(ContentManager content)
         {
-            texture = content.Load<Texture2D>("Granny");
+            texture = content.Load<Texture2D>(model.Name);
         }
 
         public void Draw(SpriteBatch spriteBatch)

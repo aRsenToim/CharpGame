@@ -1,7 +1,8 @@
 ﻿using BattleFroggy.Model;
+using BattleFroggy.Model.Opponents;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 namespace BattleFroggy.Controller
 {
@@ -15,12 +16,12 @@ namespace BattleFroggy.Controller
         private readonly QuadTreeController _quadTree;
         private readonly List<QuadTreeObject> _resultsCollisions;
         private readonly PlayerModel _playerModel;
-        private readonly OpponentModel _opponentModel;
+        private readonly IOpponentModel _opponentModel;
 
         public ArenaController(
             GameModel gameModel,
             PlayerModel playerModel,
-            OpponentModel opponentModel,
+            IOpponentModel opponentModel,
             ArenaModel arenaModel,
             PlayerController playerController,
             OpponentController opponentController,

@@ -1,9 +1,11 @@
 ﻿using BattleFroggy.Controller;
 using BattleFroggy.Model;
+using BattleFroggy.Model.Opponents;
 using BattleFroggy.VIew;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace BattleFroggy
 {
@@ -21,7 +23,9 @@ namespace BattleFroggy
         private PlayerController _playerController;
         private PlayerModel _playerModel;
 
-        private OpponentModel _opponentModel;
+
+
+        private OpponentManager _opponentManager;
         private OpponentController _opponentController;
 
         private ArenaModel _arenaModel;
@@ -44,27 +48,33 @@ namespace BattleFroggy
             _playerModel = new PlayerModel(new Vector2(0, 0));
             _playerController = new PlayerController(_playerModel, _widthGame, 500);
 
-            _opponentModel = new OpponentModel(new Vector2(_widthGame, 200));
-            _opponentController = new OpponentController(_opponentModel, _playerModel, _arenaModel, _widthGame, _heightGame);
+            _opponentManager = new OpponentManager(OpponentState.Stronghold, new Dictionary<OpponentState, Vector2>
+            {
+                { OpponentState.Carolina, new Vector2(_widthGame, 200) },
+                { OpponentState.Stronghold, new Vector2(_widthGame, 200) }
+            }
+            );
+            _opponentController = new OpponentController(_opponentManager.getOpponentModel(), _playerModel, _arenaModel, _widthGame, _heightGame);
 
             _gameModel = new GameModel(GameState.MainMenu);
             _gameController = new GameController(
                 _gameModel,
                 _playerModel, _playerController,
-                _opponentModel, _opponentController, _arenaModel, _pointCounterModel);
+                _opponentManager.getOpponentModel(), _opponentController, _arenaModel, _pointCounterModel);
 
             _gameView = new GameView(
                 _gameModel,
                 _widthGame,
                 _heightGame,
                 _playerModel,
-                _opponentModel,
+                _opponentManager.getOpponentModel(),
                 _arenaModel,
                 _pointCounterModel);
 
             _playerModel.OnDeath += () => {
                 _pointCounterModel.SetCoundRound(0);
                 _gameModel.ChangeState(GameState.GameOver);
+                _arenaModel.RemoveAllOranges();
             };
 
             base.Initialize();

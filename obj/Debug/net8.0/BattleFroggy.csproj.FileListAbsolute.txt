@@ -44,3 +44,5 @@ C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\Content\H
 C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\Content\background.xnb
 C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\Content\EveningCity.xnb
 C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\Content\NightCity.xnb
+C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\Content\carolina.xnb
+C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\Content\stronghold.xnb

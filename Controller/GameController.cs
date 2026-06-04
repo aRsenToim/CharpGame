@@ -1,4 +1,5 @@
 ﻿using BattleFroggy.Model;
+using BattleFroggy.Model.Opponents;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace BattleFroggy.Controller
             GameModel gameModel,
             PlayerModel playerModel,
             PlayerController playerController,
-            OpponentModel opponentModel,
+            IOpponentModel opponentModel,
             OpponentController opponentController,
             ArenaModel arenaModel,
             PointCountModel pointCounter
