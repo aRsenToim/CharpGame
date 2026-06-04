@@ -4,27 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-
 namespace BattleFroggy.Controller
 {
     internal class AttackContoroller
     {
         private OpponentModel _modelOpponent;
         private PlayerModel _modelPlayer;
-
-        private int _screenWidth;
-        private int _screenHeight;
-
         public List<OrangeModel> Oranges;
+        private readonly Random _rng = new Random();
 
-        public AttackContoroller(OpponentModel Opponent, PlayerModel PlayerModel, 
-            int screenWidth, int screenHeight, List<OrangeModel> orangesList) { 
+        public AttackContoroller(OpponentModel Opponent, PlayerModel PlayerModel, List<OrangeModel> orangesList)
+        {
             _modelOpponent = Opponent;
             _modelPlayer = PlayerModel;
-            _screenWidth = screenWidth;
-            _screenHeight = screenHeight;
             Oranges = orangesList;
         }
+
         private Vector2 GetSpawnPosition()
         {
             return new Vector2(
@@ -40,57 +35,34 @@ namespace BattleFroggy.Controller
                 direction.Normalize();
             return direction;
         }
+
+        // --- Оригинальные атаки ---
+
         public void ThrowOrange(float bulletSpeed)
         {
-            Vector2 spawnPos =
-                GetSpawnPosition();
-
-            Vector2 velocity =
-                GetDirectionToPlayer(spawnPos)
-                * bulletSpeed;
-
-            Oranges.Add(
-                new OrangeModel(
-                    spawnPos,
-                    velocity
-                )
-            );
+            Vector2 spawnPos = GetSpawnPosition();
+            Vector2 velocity = GetDirectionToPlayer(spawnPos) * bulletSpeed;
+            Oranges.Add(new OrangeModel(spawnPos, velocity));
         }
+
         public void ThrowSuperAttack(float bulletSpeed, int bulletCount)
         {
+            if (bulletCount <= 0) return;
             Vector2 spawnPos = GetSpawnPosition();
-            float Step = (float)((Math.PI) / bulletCount);
-
+            float step = (float)(Math.PI / bulletCount);
             for (int i = 0; i < bulletCount; i++)
             {
-                float angle = (float)(Math.PI / 2 + (Step * i));
-                Vector2 direction = new Vector2(
-                    (float)Math.Cos(angle),
-                    (float)Math.Sin(angle)
-                );
-                Vector2 velocity = direction * bulletSpeed;
-                Oranges.Add(new OrangeModel(spawnPos, velocity));
+                float angle = (float)(Math.PI / 2 + (step * i));
+                Vector2 direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                Oranges.Add(new OrangeModel(spawnPos, direction * bulletSpeed));
             }
-        }
-
-        public void CrossAttack(float bulletSpeed)
-        {
-            Vector2 spawnPos = GetSpawnPosition();
-            Vector2[] directions =
-            {
-                new Vector2(-1,  0),
-            };
-            foreach (var dir in directions)
-                Oranges.Add(new OrangeModel(spawnPos, dir * bulletSpeed));
         }
         public void TripleAttack(float bulletSpeed)
         {
             Vector2 spawnPos = GetSpawnPosition();
             Vector2 mainDir = GetDirectionToPlayer(spawnPos);
-
             float spreadAngle = 0.7f;
             float[] angles = { -spreadAngle, 0f, spreadAngle };
-
             foreach (float a in angles)
             {
                 Vector2 dir = new Vector2(
@@ -99,6 +71,27 @@ namespace BattleFroggy.Controller
                 );
                 Oranges.Add(new OrangeModel(spawnPos, dir * bulletSpeed));
             }
+        }
+        public void BoomerangAttack(float bulletSpeed)
+        {
+            Vector2 spawnPos = GetSpawnPosition();
+            float[] speeds = { 0.6f, 1.0f, 1.4f };
+            Vector2 mainDir = GetDirectionToPlayer(spawnPos);
+            float baseAngle = (float)Math.Atan2(mainDir.Y, mainDir.X);
+            for (int i = 0; i < 3; i++)
+            {
+                float angle = baseAngle - 0.5f + 0.5f * i;
+                Vector2 dir = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                Oranges.Add(new OrangeModel(spawnPos, dir * bulletSpeed * speeds[i]));
+            }
+        }
+        public void SniperBurst(float bulletSpeed)
+        {
+            Vector2 spawnPos = GetSpawnPosition();
+            Vector2 dir = GetDirectionToPlayer(spawnPos);
+            float[] multipliers = { 0.5f, 1.0f, 1.5f };
+            foreach (float m in multipliers)
+                Oranges.Add(new OrangeModel(spawnPos, dir * bulletSpeed * m));
         }
     }
 }

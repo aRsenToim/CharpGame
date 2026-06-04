@@ -38,7 +38,7 @@ namespace BattleFroggy
 
         protected override void Initialize()
         {
-            _arenaModel = new ArenaModel(true);
+            _arenaModel = new ArenaModel();
             _pointCounterModel = new PointCountModel(1f, 10, 0);
 
             _playerModel = new PlayerModel(new Vector2(0, 0));

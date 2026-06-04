@@ -27,7 +27,7 @@ namespace BattleFroggy.Controller
             _arenaModel = arenaModel;
             _screenWidth = screenWidth;
             _screenHeight = screenHeight;
-            _attackController = new AttackContoroller(opponent, player, screenWidth, screenHeight, arenaModel.Oranges);
+            _attackController = new AttackContoroller(opponent, player, arenaModel.Oranges);
             _opponent.ThrowCooldown = 1f;
         }
 

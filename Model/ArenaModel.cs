@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BattleFroggy.Model
 {
@@ -10,7 +6,7 @@ namespace BattleFroggy.Model
     {
         public List<OrangeModel> Oranges = new List<OrangeModel>();
         
-        public ArenaModel(bool isActivePlayer)
+        public ArenaModel()
         {   
         }
 
