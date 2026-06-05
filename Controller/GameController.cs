@@ -11,10 +11,10 @@ namespace BattleFroggy.Controller
         private readonly GameModel _gameModel;
         private readonly ArenaController _arenaController;
         private readonly OpponentRepository _repository;
+        private readonly SelectionModel _selection;
 
         private KeyboardState _previousKeyboard;
 
-        public int SelectedOpponent { get; private set; } = 0;
         public bool ShowDebug { get; private set; } = false;
 
         public GameController(
@@ -24,11 +24,13 @@ namespace BattleFroggy.Controller
             OpponentRepository repository,
             OpponentController opponentController,
             ArenaModel arenaModel,
-            PointCountModel pointCounter
+            PointCountModel pointCounter,
+            SelectionModel selection
         )
         {
             _gameModel = gameModel;
             _repository = repository;
+            _selection = selection;
 
             _arenaController = new ArenaController(
                 playerModel, repository, arenaModel,
@@ -50,11 +52,11 @@ namespace BattleFroggy.Controller
 
                 case GameState.OpponentSelect:
                     if (keyboard.IsKeyDown(Keys.Tab) && _previousKeyboard.IsKeyUp(Keys.Tab))
-                        SelectedOpponent = (SelectedOpponent + 1) % 2;
+                        _selection.SelectedOpponent = (_selection.SelectedOpponent + 1) % 2;
 
                     if (keyboard.IsKeyDown(Keys.Enter) && _previousKeyboard.IsKeyUp(Keys.Enter))
                     {
-                        _repository.Set(SelectedOpponent == 0 ? OpponentState.Stronghold : OpponentState.Carolina);
+                        _repository.Set(_selection.SelectedOpponent == 0 ? OpponentState.Stronghold : OpponentState.Carolina);
                         _gameModel.ChangeState(GameState.Arena);
                     }
 

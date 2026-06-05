@@ -19,7 +19,7 @@ namespace BattleFroggy.VIew
         public Gameover gameoverView;
         public OpponentSelectView opponentSelectView;
 
-        private BattleFroggy.Controller.GameController _controller;
+        private readonly SelectionModel _selection;
 
         public GameView(
             GameModel gameModel,
@@ -27,20 +27,19 @@ namespace BattleFroggy.VIew
             PlayerModel playerModel,
             OpponentRepository repository,
             ArenaModel arenaModel,
-            PointCountModel pointCounter
+            PointCountModel pointCounter,
+            SelectionModel selection
         )
         {
             model = gameModel;
             widthGame = width;
             heightGame = height;
+            _selection = selection;
             mainMenuView = new MainMenuView(width, height);
             arenaView = new ArenaView(width, height, playerModel, repository, arenaModel, pointCounter);
             gameoverView = new Gameover();
             opponentSelectView = new OpponentSelectView(width, height);
         }
-
-        public void SetController(BattleFroggy.Controller.GameController controller)
-            => _controller = controller;
 
         public void Load(ContentManager content, GraphicsDevice graphicsDevice)
         {
@@ -59,7 +58,7 @@ namespace BattleFroggy.VIew
                     break;
 
                 case GameState.OpponentSelect:
-                    opponentSelectView.Draw(spriteBatch, _controller?.SelectedOpponent ?? 0);
+                    opponentSelectView.Draw(spriteBatch, _selection.SelectedOpponent);
                     break;
 
                 case GameState.Arena:

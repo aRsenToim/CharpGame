@@ -29,6 +29,7 @@ namespace BattleFroggy
 
         private ArenaModel _arenaModel;
         private PointCountModel _pointCounterModel;
+        private SelectionModel _selectionModel;
 
         public Game1()
         {
@@ -43,6 +44,7 @@ namespace BattleFroggy
         {
             _arenaModel = new ArenaModel();
             _pointCounterModel = new PointCountModel(1f, 10, 0);
+            _selectionModel = new SelectionModel();
 
             _playerModel = new PlayerModel(new Vector2(0, 200));
             _playerController = new PlayerController(_playerModel, _widthGame, 500);
@@ -61,14 +63,14 @@ namespace BattleFroggy
                 _gameModel,
                 _playerModel, _playerController,
                 _repository, _opponentController,
-                _arenaModel, _pointCounterModel);
+                _arenaModel, _pointCounterModel,
+                _selectionModel);
 
             _gameView = new GameView(
                 _gameModel, _widthGame, _heightGame,
                 _playerModel, _repository,
-                _arenaModel, _pointCounterModel);
-
-            _gameView.SetController(_gameController);
+                _arenaModel, _pointCounterModel,
+                _selectionModel);
 
             _playerModel.OnDeath += () => {
                 _pointCounterModel.SetCoundRound(0);

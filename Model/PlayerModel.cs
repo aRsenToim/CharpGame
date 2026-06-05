@@ -3,49 +3,34 @@ using System;
 
 namespace BattleFroggy.Model
 {
-    enum PlayerDirection
-    {
-        Left,
-        Right,
-        Default
-    }
+    enum PlayerDirection { Left, Right, Default }
+
     internal class PlayerModel
     {
         public event Action OnDeath;
 
-
         public Vector2 Position;
-        public Vector2 StartPosition;
         public Vector2 Velocity;
 
-        public float Speed = 350f;
-        public float Gravity = 900f;
-        public float JumpForce = -600f;
-        public int countJump = 0;
-        public int maxJump = 2;
+        public float Speed { get; } = 350f;
+        public float Gravity { get; } = 900f;
+        public float JumpForce { get; } = -600f;
 
-        public int Height = 146;
-        public int Width = 100;
+        public int countJump { get; set; } = 0;
+        public int maxJump { get; } = 2;
 
-        public int HP = 10;
-        public int maxHP = 10;
+        public int Height { get; } = 146;
+        public int Width { get; } = 100;
 
-        public PlayerDirection playerDirection = PlayerDirection.Default;
-        
-        public bool Ground = false;
+        public int HP { get; private set; } = 10;
+        public int maxHP { get; } = 10;
 
-        public Rectangle Hitbox
-        {
-            get
-            {
-                return new Rectangle(
-                    (int)Position.X,
-                    (int)Position.Y,
-                    Width,
-                    Height
-                );
-            }
-        }
+        public PlayerDirection playerDirection { get; set; } = PlayerDirection.Default;
+        public bool Ground { get; set; } = false;
+
+        public Vector2 StartPosition { get; }
+
+        public Rectangle Hitbox => new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
 
         public PlayerModel(Vector2 position)
         {
