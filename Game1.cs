@@ -16,12 +16,13 @@ namespace BattleFroggy
 
         private int _widthGame = 1280;
         private int _heightGame = 720;
+
         private GameModel _gameModel;
         private GameController _gameController;
         private GameView _gameView;
 
-        private PlayerController _playerController;
         private PlayerModel _playerModel;
+        private PlayerController _playerController;
 
         private OpponentRepository _repository;
         private OpponentController _opponentController;
@@ -41,7 +42,6 @@ namespace BattleFroggy
         protected override void Initialize()
         {
             _arenaModel = new ArenaModel();
-
             _pointCounterModel = new PointCountModel(1f, 10, 0);
 
             _playerModel = new PlayerModel(new Vector2(0, 200));
@@ -56,6 +56,7 @@ namespace BattleFroggy
             _opponentController = new OpponentController(_repository, _playerModel, _arenaModel, _widthGame, _heightGame);
 
             _gameModel = new GameModel(GameState.MainMenu);
+
             _gameController = new GameController(
                 _gameModel,
                 _playerModel, _playerController,
@@ -63,13 +64,11 @@ namespace BattleFroggy
                 _arenaModel, _pointCounterModel);
 
             _gameView = new GameView(
-                _gameModel,
-                _widthGame,
-                _heightGame,
-                _playerModel,
-                _repository,
-                _arenaModel,
-                _pointCounterModel);
+                _gameModel, _widthGame, _heightGame,
+                _playerModel, _repository,
+                _arenaModel, _pointCounterModel);
+
+            _gameView.SetController(_gameController);
 
             _playerModel.OnDeath += () => {
                 _pointCounterModel.SetCoundRound(0);
@@ -96,13 +95,12 @@ namespace BattleFroggy
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             _gameView.Draw(
                 _spriteBatch,
                 _gameController.ShowDebug,
-                _gameController.ShowDebug ? _gameController.GetQuadTreeBounds() : null
-            );
+                _gameController.ShowDebug ? _gameController.GetQuadTreeBounds() : null);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

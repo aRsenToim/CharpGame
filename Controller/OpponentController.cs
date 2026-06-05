@@ -43,10 +43,11 @@ namespace BattleFroggy.Controller
             if (Opponent.ThrowCooldown <= 0f)
             {
                 _throwCount++;
-                if (_throwCount % 5 == 0)
-                    Opponent.Attacks.GetAttack(2).Execute(_bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
-                Opponent.Attacks.GetAttack(1).Execute(_bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
-                Opponent.Attacks.GetAttack(0).Execute(_bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
+                int count = Opponent.Attacks.Attacks.Count;
+                int index = _throwCount % count;
+                Opponent.Attacks.GetAttack(index).Execute(
+                    _bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(),
+                    _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
                 Opponent.ThrowCooldown = _throwInterval;
             }
 

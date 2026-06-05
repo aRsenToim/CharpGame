@@ -1,6 +1,5 @@
 ﻿using BattleFroggy.Model;
 using BattleFroggy.Model.Opponents;
-using BattleFroggy.VIew.Components;
 using BattleFroggy.VIew.Scene;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -15,18 +14,16 @@ namespace BattleFroggy.VIew
         public int widthGame;
         public int heightGame;
 
-        public OpponentView opponentView;
-        public PlayerView playerView;
-        public OrangeView orangeView;
         public MainMenuView mainMenuView;
         public ArenaView arenaView;
-        public HPView hpView;
         public Gameover gameoverView;
+        public OpponentSelectView opponentSelectView;
+
+        private BattleFroggy.Controller.GameController _controller;
 
         public GameView(
             GameModel gameModel,
-            int width,
-            int height,
+            int width, int height,
             PlayerModel playerModel,
             OpponentRepository repository,
             ArenaModel arenaModel,
@@ -34,22 +31,23 @@ namespace BattleFroggy.VIew
         )
         {
             model = gameModel;
+            widthGame = width;
+            heightGame = height;
             mainMenuView = new MainMenuView(width, height);
-            arenaView = new ArenaView(
-                width,
-                height,
-                playerModel,
-                repository,
-                arenaModel,
-                pointCounter);
+            arenaView = new ArenaView(width, height, playerModel, repository, arenaModel, pointCounter);
             gameoverView = new Gameover();
+            opponentSelectView = new OpponentSelectView(width, height);
         }
+
+        public void SetController(BattleFroggy.Controller.GameController controller)
+            => _controller = controller;
 
         public void Load(ContentManager content, GraphicsDevice graphicsDevice)
         {
             mainMenuView.Load(content);
             arenaView.Load(content, graphicsDevice);
             gameoverView.Load(content);
+            opponentSelectView.Load(content);
         }
 
         public void Draw(SpriteBatch spriteBatch, bool showDebug = false, List<Rectangle> debugBounds = null)
@@ -58,6 +56,10 @@ namespace BattleFroggy.VIew
             {
                 case GameState.MainMenu:
                     mainMenuView.Draw(spriteBatch);
+                    break;
+
+                case GameState.OpponentSelect:
+                    opponentSelectView.Draw(spriteBatch, _controller?.SelectedOpponent ?? 0);
                     break;
 
                 case GameState.Arena:

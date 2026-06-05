@@ -23,8 +23,9 @@ namespace BattleFroggy.Model.Opponents
         {
             Position = new Vector2(startPosition.X - Width, startPosition.Y);
             Attacks.AddAttack(new ThrowOrange());
-            Attacks.AddAttack(new ThrowSuperAttack(5));
+            Attacks.AddAttack(new ThrowSuperAttack(6));
             Attacks.AddAttack(new FloorSweep());
+            Attacks.AddAttack(new RainAttack(8));
         }
     }
 }

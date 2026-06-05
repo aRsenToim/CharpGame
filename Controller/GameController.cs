@@ -9,11 +9,12 @@ namespace BattleFroggy.Controller
     internal class GameController
     {
         private readonly GameModel _gameModel;
-
         private readonly ArenaController _arenaController;
         private readonly OpponentRepository _repository;
+
         private KeyboardState _previousKeyboard;
 
+        public int SelectedOpponent { get; private set; } = 0;
         public bool ShowDebug { get; private set; } = false;
 
         public GameController(
@@ -35,34 +36,45 @@ namespace BattleFroggy.Controller
                 new PointCounterController(pointCounter));
         }
 
-        public void Update(KeyboardState keyboardState, float deltaTime)
+        public void Update(KeyboardState keyboard, float deltaTime)
         {
-            if (keyboardState.IsKeyDown(Keys.F1) && _previousKeyboard.IsKeyUp(Keys.F1))
+            if (keyboard.IsKeyDown(Keys.F1) && _previousKeyboard.IsKeyUp(Keys.F1))
                 ShowDebug = !ShowDebug;
 
             switch (_gameModel.CurrentState)
             {
                 case GameState.MainMenu:
-                    if (keyboardState.IsKeyDown(Keys.Enter) && _previousKeyboard.IsKeyUp(Keys.Enter))
+                    if (keyboard.IsKeyDown(Keys.Enter) && _previousKeyboard.IsKeyUp(Keys.Enter))
+                        _gameModel.ChangeState(GameState.OpponentSelect);
+                    break;
+
+                case GameState.OpponentSelect:
+                    if (keyboard.IsKeyDown(Keys.Tab) && _previousKeyboard.IsKeyUp(Keys.Tab))
+                        SelectedOpponent = (SelectedOpponent + 1) % 2;
+
+                    if (keyboard.IsKeyDown(Keys.Enter) && _previousKeyboard.IsKeyUp(Keys.Enter))
+                    {
+                        _repository.Set(SelectedOpponent == 0 ? OpponentState.Stronghold : OpponentState.Carolina);
                         _gameModel.ChangeState(GameState.Arena);
+                    }
+
+                    if (keyboard.IsKeyDown(Keys.Escape) && _previousKeyboard.IsKeyUp(Keys.Escape))
+                        _gameModel.ChangeState(GameState.MainMenu);
                     break;
 
                 case GameState.Arena:
-                    _arenaController.Update(deltaTime, keyboardState);
+                    _arenaController.Update(deltaTime, keyboard);
                     break;
 
                 case GameState.GameOver:
-                    if (keyboardState.IsKeyDown(Keys.Enter) && _previousKeyboard.IsKeyUp(Keys.Enter))
+                    if (keyboard.IsKeyDown(Keys.Enter) && _previousKeyboard.IsKeyUp(Keys.Enter))
                         _gameModel.ChangeState(GameState.MainMenu);
                     break;
             }
 
-            _previousKeyboard = keyboardState;
+            _previousKeyboard = keyboard;
         }
 
-        public List<Rectangle> GetQuadTreeBounds()
-        {
-            return _arenaController.GetQuadTreeBounds();
-        }
+        public List<Rectangle> GetQuadTreeBounds() => _arenaController.GetQuadTreeBounds();
     }
 }
