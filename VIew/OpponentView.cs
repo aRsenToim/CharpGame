@@ -13,20 +13,21 @@ namespace BattleFroggy.VIew
 {
     internal class OpponentView
     {
-        public IOpponentModel model;
+        private readonly OpponentRepository _repository;
         public Texture2D texture;
-
-        public OpponentView(IOpponentModel Model) {
-            model = Model;
+        private IOpponentModel Opponent => _repository.Current;
+        public OpponentView(OpponentRepository repository)
+        {
+            _repository = repository;
         }
         public void Load(ContentManager content)
         {
-            texture = content.Load<Texture2D>(model.Name);
+            texture = content.Load<Texture2D>(Opponent.Name);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, model.Position, Color.White);
+            spriteBatch.Draw(texture, Opponent.Position, Color.White);
         }
             
     }

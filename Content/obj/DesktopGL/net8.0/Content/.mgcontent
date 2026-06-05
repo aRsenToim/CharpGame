@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/BaseFont.spritefont</File>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/EdgeCity.png</File>
+    <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/froggy_dead.png</File>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/froggy_left.png</File>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/froggy_rigth.png</File>
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/froggy.png</File>
@@ -16,6 +17,7 @@
     <File>C:/Users/arsen/source/repos/BattleFroggy/BattleFroggy/Content/stronghold.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

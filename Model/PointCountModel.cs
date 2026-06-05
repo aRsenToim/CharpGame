@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BattleFroggy.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +13,22 @@ namespace BattleFroggy.Model
         public float TimeInPoint { get; } = 0.5f;
         public int CountPoint { get; } = 10;
         public int CountRound { get; private set; } = 0;
-    
+        public int BestPoint { get; private set; } = 0;
+
         public PointCountModel(float timeInPoint, int countPoint, int countRound) {
             TimeInPoint = timeInPoint;
             CountPoint = countPoint;
             CountRound = countRound;
+            BestPoint = DataPointController.Load();
         }
         public void SetCoundRound(int countRound)
         {
+            if (CountRound > BestPoint)
+            {
+                DataPointController.Save(CountRound);
+                BestPoint = CountRound;
+            }
+            ;
             CountRound = countRound;
         }
         public void AddCountPoint()

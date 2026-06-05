@@ -32,7 +32,7 @@ namespace BattleFroggy.VIew.Components
         {
             for (int i = 0; i < playerModel.HP; i++)
             {
-                spriteBatch.Draw(HPTexture, new Rectangle(i*widthTexture, 50, widthTexture, heightTexture), Color.White);
+                spriteBatch.Draw(HPTexture, new Rectangle(i*widthTexture, 100, widthTexture, heightTexture), Color.White);
             }
         }
     }

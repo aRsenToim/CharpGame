@@ -8,7 +8,6 @@ namespace BattleFroggy.Controller
 {
     internal class ArenaController
     {
-        private readonly GameModel _gameModel;
         private readonly ArenaModel _arenaModel;
         private readonly PlayerController _playerController;
         private readonly OpponentController _opponentController;
@@ -16,27 +15,25 @@ namespace BattleFroggy.Controller
         private readonly QuadTreeController _quadTree;
         private readonly List<QuadTreeObject> _resultsCollisions;
         private readonly PlayerModel _playerModel;
-        private readonly IOpponentModel _opponentModel;
+        private readonly OpponentRepository _repository;
 
         public ArenaController(
-            GameModel gameModel,
             PlayerModel playerModel,
-            IOpponentModel opponentModel,
+            OpponentRepository repository,
             ArenaModel arenaModel,
             PlayerController playerController,
             OpponentController opponentController,
             PointCounterController pointCounterController
         )
         {
-            _gameModel = gameModel;
             _playerModel = playerModel;
-            _opponentModel = opponentModel;
+            _repository = repository;
+            _arenaModel = arenaModel;
             _playerController = playerController;
             _opponentController = opponentController;
             _pointCounterController = pointCounterController;
             _quadTree = new QuadTreeController(new Rectangle(0, 0, 1280, 720), 0);
             _resultsCollisions = new List<QuadTreeObject>();
-            _arenaModel = arenaModel;
         }
 
         public void Update(
@@ -47,7 +44,7 @@ namespace BattleFroggy.Controller
             _playerController.Update(
                 deltaTime,
                 keyboardState,
-                _opponentModel.Hitbox
+                _repository.Current.Hitbox
             );
 
             _opponentController.Update(deltaTime);

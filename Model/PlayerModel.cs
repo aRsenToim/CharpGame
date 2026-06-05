@@ -15,6 +15,7 @@ namespace BattleFroggy.Model
 
 
         public Vector2 Position;
+        public Vector2 StartPosition;
         public Vector2 Velocity;
 
         public float Speed = 350f;
@@ -26,10 +27,11 @@ namespace BattleFroggy.Model
         public int Height = 146;
         public int Width = 100;
 
-        public int HP = 1;
+        public int HP = 10;
+        public int maxHP = 10;
 
         public PlayerDirection playerDirection = PlayerDirection.Default;
-
+        
         public bool Ground = false;
 
         public Rectangle Hitbox
@@ -48,17 +50,26 @@ namespace BattleFroggy.Model
         public PlayerModel(Vector2 position)
         {
             Position = position;
+            StartPosition = position;
         }
 
         public void KillHp()
         {
-            if (HP-1 > 0) {
-                HP -= 1;
-            }else
+            HP -= 1;
+            if (HP <= 0)
             {
+                HP = 0;
                 OnDeath?.Invoke();
             }
         }
 
+        public void resetPlayer()
+        {
+            HP = maxHP;
+            Position = StartPosition;
+            Velocity = Vector2.Zero;
+            countJump = 0;
+            Ground = false;
+        }
     }
 }

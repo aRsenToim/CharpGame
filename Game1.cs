@@ -23,9 +23,7 @@ namespace BattleFroggy
         private PlayerController _playerController;
         private PlayerModel _playerModel;
 
-
-
-        private OpponentManager _opponentManager;
+        private OpponentRepository _repository;
         private OpponentController _opponentController;
 
         private ArenaModel _arenaModel;
@@ -43,38 +41,41 @@ namespace BattleFroggy
         protected override void Initialize()
         {
             _arenaModel = new ArenaModel();
+
             _pointCounterModel = new PointCountModel(1f, 10, 0);
 
-            _playerModel = new PlayerModel(new Vector2(0, 0));
+            _playerModel = new PlayerModel(new Vector2(0, 200));
             _playerController = new PlayerController(_playerModel, _widthGame, 500);
 
-            _opponentManager = new OpponentManager(OpponentState.Stronghold, new Dictionary<OpponentState, Vector2>
+            _repository = new OpponentRepository(new Dictionary<OpponentState, Vector2>
             {
-                { OpponentState.Carolina, new Vector2(_widthGame, 200) },
-                { OpponentState.Stronghold, new Vector2(_widthGame, 200) }
-            }
-            );
-            _opponentController = new OpponentController(_opponentManager.getOpponentModel(), _playerModel, _arenaModel, _widthGame, _heightGame);
+                { OpponentState.Stronghold, new Vector2(_widthGame, 200) },
+                { OpponentState.Carolina,   new Vector2(_widthGame, 200) }
+            });
+
+            _opponentController = new OpponentController(_repository, _playerModel, _arenaModel, _widthGame, _heightGame);
 
             _gameModel = new GameModel(GameState.MainMenu);
             _gameController = new GameController(
                 _gameModel,
                 _playerModel, _playerController,
-                _opponentManager.getOpponentModel(), _opponentController, _arenaModel, _pointCounterModel);
+                _repository, _opponentController,
+                _arenaModel, _pointCounterModel);
 
             _gameView = new GameView(
                 _gameModel,
                 _widthGame,
                 _heightGame,
                 _playerModel,
-                _opponentManager.getOpponentModel(),
+                _repository,
                 _arenaModel,
                 _pointCounterModel);
 
             _playerModel.OnDeath += () => {
                 _pointCounterModel.SetCoundRound(0);
                 _gameModel.ChangeState(GameState.GameOver);
-                _arenaModel.RemoveAllOranges();
+                _arenaModel.DeleteAllOranges();
+                _playerModel.resetPlayer();
             };
 
             base.Initialize();

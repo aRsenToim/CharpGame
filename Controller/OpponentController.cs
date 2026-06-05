@@ -6,50 +6,48 @@ namespace BattleFroggy.Controller
 {
     internal class OpponentController
     {
-        private readonly IOpponentModel _opponent;
-        private ArenaModel _arenaModel;
-        private PlayerModel _player;
+        private readonly OpponentRepository _repository;
+        private readonly ArenaModel _arenaModel;
+        private readonly PlayerModel _player;
         private float _throwInterval = 0.8f;
         private int _throwCount = 0;
-        private float bulletSpeed = 500f;
+        private float _bulletSpeed = 500f;
+        private readonly int _screenWidth;
+        private readonly int _screenHeight;
 
-        private int _screenWidth;
-        private int _screenHeight;
+        private IOpponentModel Opponent => _repository.Current;
 
-        public OpponentController(IOpponentModel opponent, PlayerModel player, ArenaModel arenaModel, int screenWidth, int screenHeight)
+        public OpponentController(OpponentRepository repository, PlayerModel player, ArenaModel arenaModel, int screenWidth, int screenHeight)
         {
-            _opponent = opponent;
+            _repository = repository;
             _player = player;
             _arenaModel = arenaModel;
             _screenWidth = screenWidth;
             _screenHeight = screenHeight;
-            _opponent.ThrowCooldown = 1f;
         }
 
-        private Vector2 GetSpawnPosition()
-        {
-            return new Vector2(
-                _opponent.Position.X + _opponent.Width / 2f,
-                _opponent.Position.Y + _opponent.Height / 4f
-            );
-        }
+        private Vector2 GetSpawnPosition() => new Vector2(
+            Opponent.Position.X + Opponent.Width / 2f,
+            Opponent.Position.Y + Opponent.Height / 4f);
 
         private Vector2 GetDirectionToPlayer()
         {
-            Vector2 direction = _player.Position - _opponent.Position;
-            if (direction != Vector2.Zero)
-                direction.Normalize();
-            return direction;
+            Vector2 dir = _player.Position - Opponent.Position;
+            if (dir != Vector2.Zero) dir.Normalize();
+            return dir;
         }
 
         public void Update(float deltaTime)
         {
-            _opponent.ThrowCooldown -= deltaTime;
-            if (_opponent.ThrowCooldown <= 0f)
+            Opponent.ThrowCooldown -= deltaTime;
+            if (Opponent.ThrowCooldown <= 0f)
             {
                 _throwCount++;
-                if(_throwCount % 15 == 0) _opponent.Attacks.GetAttack(2).Execute(bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 500f, _screenWidth, _screenHeight);
-                _opponent.ThrowCooldown = _throwInterval;
+                if (_throwCount % 5 == 0)
+                    Opponent.Attacks.GetAttack(2).Execute(_bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
+                Opponent.Attacks.GetAttack(1).Execute(_bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
+                Opponent.Attacks.GetAttack(0).Execute(_bulletSpeed, GetSpawnPosition(), GetDirectionToPlayer(), _arenaModel.Oranges, 200f, _screenWidth, _screenHeight);
+                Opponent.ThrowCooldown = _throwInterval;
             }
 
             UpdateOranges(deltaTime);
@@ -60,17 +58,12 @@ namespace BattleFroggy.Controller
             foreach (var orange in _arenaModel.Oranges)
             {
                 if (!orange.IsActive) continue;
-
                 orange.Position += orange.Velocity * deltaTime;
                 orange.Bounds = orange.Hitbox;
-
                 if (orange.Position.X < 0 || orange.Position.X > _screenWidth ||
                     orange.Position.Y < 0 || orange.Position.Y > _screenHeight)
-                {
                     orange.IsActive = false;
-                }
             }
-
             _arenaModel.RemoveAllOranges();
         }
     }

@@ -27,7 +27,7 @@ namespace BattleFroggy.VIew.Scene
             int width,
             int height,
             PlayerModel playerModel,
-            IOpponentModel opponentModel,
+            OpponentRepository repository,
             ArenaModel arenaModel,
             PointCountModel pointCounter
         )
@@ -35,7 +35,7 @@ namespace BattleFroggy.VIew.Scene
             widthGame = width;
             heightGame = height;
             playerView = new PlayerView(playerModel);
-            opponentView = new OpponentView(opponentModel);
+            opponentView = new OpponentView(repository);
             orangeView = new OrangeView(arenaModel.Oranges);
             _arenaModel = arenaModel;
             hpView = new HPView(playerModel);
@@ -46,11 +46,11 @@ namespace BattleFroggy.VIew.Scene
         public void Load(ContentManager content, GraphicsDevice graphicsDevice)
         {
             Arena = content.Load<Texture2D>("EdgeCity");
-            playerView.Load(content);
             opponentView.Load(content);
             orangeView.Load(content);
-            hpView.Load(content);
             _pointCounterView.Load(content);
+            hpView.Load(content);
+            playerView.Load(content);
             _debugView.Load(graphicsDevice);
         }
 

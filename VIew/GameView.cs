@@ -28,7 +28,7 @@ namespace BattleFroggy.VIew
             int width,
             int height,
             PlayerModel playerModel,
-            IOpponentModel opponentModel,
+            OpponentRepository repository,
             ArenaModel arenaModel,
             PointCountModel pointCounter
         )
@@ -39,7 +39,7 @@ namespace BattleFroggy.VIew
                 width,
                 height,
                 playerModel,
-                opponentModel,
+                repository,
                 arenaModel,
                 pointCounter);
             gameoverView = new Gameover();

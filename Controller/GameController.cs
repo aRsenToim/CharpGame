@@ -9,10 +9,9 @@ namespace BattleFroggy.Controller
     internal class GameController
     {
         private readonly GameModel _gameModel;
-        private readonly PlayerModel _playerModel;
 
         private readonly ArenaController _arenaController;
-
+        private readonly OpponentRepository _repository;
         private KeyboardState _previousKeyboard;
 
         public bool ShowDebug { get; private set; } = false;
@@ -21,26 +20,19 @@ namespace BattleFroggy.Controller
             GameModel gameModel,
             PlayerModel playerModel,
             PlayerController playerController,
-            IOpponentModel opponentModel,
+            OpponentRepository repository,
             OpponentController opponentController,
             ArenaModel arenaModel,
             PointCountModel pointCounter
         )
         {
             _gameModel = gameModel;
-            _playerModel = playerModel;
-
-            var pointCounterController = new PointCounterController(pointCounter);
+            _repository = repository;
 
             _arenaController = new ArenaController(
-                gameModel,
-                playerModel,
-                opponentModel,
-                arenaModel,
-                playerController,
-                opponentController,
-                pointCounterController
-            );
+                playerModel, repository, arenaModel,
+                playerController, opponentController,
+                new PointCounterController(pointCounter));
         }
 
         public void Update(KeyboardState keyboardState, float deltaTime)
