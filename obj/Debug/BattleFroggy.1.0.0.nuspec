@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>BattleFroggy</id>
+    <version>1.0.0</version>
+    <authors>BattleFroggy</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="a741da91486cc98ea393502d6425e0d749a676f7" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="MonoGame.Content.Builder.Task" version="3.8.4.1" exclude="Build,Analyzers" />
+        <dependency id="MonoGame.Framework.DesktopGL" version="3.8.4.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <contentFiles>
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/background.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/BaseFont.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/carolina.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/EdgeCity.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/EveningCity.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/froggy.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/froggy_dead.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/froggy_left.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/froggy_rigth.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/Granny.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/HP.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/MenuGame.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/NightCity.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/orange.xnb" buildAction="Content" />
+      <files include="any/net8.0/Content/bin/DesktopGL/Content/stronghold.xnb" buildAction="Content" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\BattleFroggy.runtimeconfig.json" target="lib\net8.0\BattleFroggy.runtimeconfig.json" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\bin\Debug\net8.0\BattleFroggy.dll" target="lib\net8.0\BattleFroggy.dll" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\background.xnb" target="content\Content\bin\DesktopGL\Content\background.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\background.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\background.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\BaseFont.xnb" target="content\Content\bin\DesktopGL\Content\BaseFont.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\BaseFont.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\BaseFont.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\carolina.xnb" target="content\Content\bin\DesktopGL\Content\carolina.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\carolina.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\carolina.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\EdgeCity.xnb" target="content\Content\bin\DesktopGL\Content\EdgeCity.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\EdgeCity.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\EdgeCity.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\EveningCity.xnb" target="content\Content\bin\DesktopGL\Content\EveningCity.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\EveningCity.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\EveningCity.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy.xnb" target="content\Content\bin\DesktopGL\Content\froggy.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\froggy.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy_dead.xnb" target="content\Content\bin\DesktopGL\Content\froggy_dead.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy_dead.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\froggy_dead.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy_left.xnb" target="content\Content\bin\DesktopGL\Content\froggy_left.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy_left.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\froggy_left.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy_rigth.xnb" target="content\Content\bin\DesktopGL\Content\froggy_rigth.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\froggy_rigth.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\froggy_rigth.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\Granny.xnb" target="content\Content\bin\DesktopGL\Content\Granny.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\Granny.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\Granny.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\HP.xnb" target="content\Content\bin\DesktopGL\Content\HP.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\HP.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\HP.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\MenuGame.xnb" target="content\Content\bin\DesktopGL\Content\MenuGame.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\MenuGame.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\MenuGame.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\NightCity.xnb" target="content\Content\bin\DesktopGL\Content\NightCity.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\NightCity.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\NightCity.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\orange.xnb" target="content\Content\bin\DesktopGL\Content\orange.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\orange.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\orange.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\stronghold.xnb" target="content\Content\bin\DesktopGL\Content\stronghold.xnb" />
+    <file src="C:\Users\arsen\source\repos\BattleFroggy\BattleFroggy\Content\bin\DesktopGL\Content\stronghold.xnb" target="contentFiles\any\net8.0\Content\bin\DesktopGL\Content\stronghold.xnb" />
+  </files>
+</package>
